@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap");
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  font-family: "Quicksand", sans-serif;
+  --primary-dark: #1a1a1a;
+  --secondary: #f3a229;
+  --primary-light: white;
+  --font-dark: white;
+  --font-light: black;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--primary-dark);
+  transition: all 250ms ease-in-out;
+}
+
+nav {
+  padding: 30px 100px 30px 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  display: inline;
+}
+
+nav li {
+  display: inline;
+  margin-left: 20px;
+}
+
+nav li a {
+  color: var(--font-dark);
+}
+
+nav a {
+  text-decoration: none !important;
+}
+
+#menu-button {
+    width: 40px;
+    height: 40px;
+    /* background-color: #2c2c2c; */
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    transition: all 250ms ease-in-out;
+}
+
+#menu-button i{
+    color: white;
+    font-size: 2rem;
+}
+
+#logo-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 170px;
+}
+
+#logo {
+  color: var(--secondary);
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+#toggle-container {
+  background-color: #424242;
+  width: 50px;
+  height: 23px;
+  border-radius: 50px;
+  border: 0.13rem solid #dbdbdb;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+}
+
+#toggle-switch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50px;
+  background-color: var(--secondary);
+}
+
+.slide {
+  flex-direction: row-reverse !important;
+}
+
+.slide-animate {
+  animation: slide 300ms ease-in-out;
+}
+
+.light-bg {
+  background-color: var(--primary-light);
+}
+
+.light-font {
+  color: var(--font-light);
+}
+
+@keyframes slide {
+  0% {
+    width: 100%;
+  }
+  25% {
+    width: 75%;
+  }
+  50% {
+    width: 50%;
+  }
+  75% {
+    width: 25%;
+  }
+  100% {
+    width: 12px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  nav {
+    padding: 30px 40px 30px 40px;
+  }
+}
+
+@media only screen and (max-width: 465px) {
+    nav ul{
+      display: none;
+    }
+
+    #menu-button{
+        display: flex;
+    }
+  }
