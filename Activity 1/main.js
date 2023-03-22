@@ -4,6 +4,7 @@ const navButtons = document.getElementsByClassName("nav-button");
 const menuButton = document.querySelector('#menu-button i');
 const closeMenuButton = document.querySelector("#close-menu i");
 const sideMenu = document.getElementById("side-menu");
+const header = document.querySelector("#home h1");
 
 toggleSwitchContainer.addEventListener("click", (event) => {
   event.target.classList.toggle("slide");
@@ -20,6 +21,7 @@ toggleSwitchContainer.addEventListener("click", (event) => {
   switchMode(menuButton);
   switchMode(navButtons);
   switchMode(sideMenu);
+  switchMode(header);
   setTimeout(function () {
     event.target.children[0].classList.toggle("slide-animate");
   }, 350);
@@ -40,6 +42,7 @@ toggleSwitch.addEventListener("click", (event) => {
   switchMode(menuButton);
   switchMode(navButtons);
   switchMode(sideMenu);
+  switchMode(header);
   setTimeout(function () {
     event.target.classList.toggle("slide-animate");
   }, 350);
