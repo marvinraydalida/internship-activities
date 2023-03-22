@@ -1,12 +1,13 @@
 const toggleSwitchContainer = document.getElementById("toggle-container");
 const toggleSwitch = document.getElementById("toggle-switch");
 const navButtons = document.getElementsByClassName("nav-button");
-const menuButton = document.querySelector('#menu-button i');
+const menuButton = document.querySelector("#menu-button i");
 const closeMenuButton = document.querySelector("#close-menu i");
 const sideMenu = document.getElementById("side-menu");
 const header = document.querySelector("#home h1");
 const aboutMe = document.querySelector("#about-details h1");
 const aboutMeDetails = document.querySelector("#about-details h2");
+const grids = document.getElementsByClassName("grid");
 
 toggleSwitchContainer.addEventListener("click", (event) => {
   event.target.classList.toggle("slide");
@@ -26,6 +27,9 @@ toggleSwitchContainer.addEventListener("click", (event) => {
   switchMode(header);
   switchMode(aboutMe);
   switchMode(aboutMeDetails);
+  switchMode(title);
+  switchMode(sentence);
+  switchGridTheme();
   setTimeout(function () {
     event.target.children[0].classList.toggle("slide-animate");
   }, 350);
@@ -49,29 +53,28 @@ toggleSwitch.addEventListener("click", (event) => {
   switchMode(header);
   switchMode(aboutMe);
   switchMode(aboutMeDetails);
+  switchMode(title);
+  switchMode(sentence);
   setTimeout(function () {
     event.target.classList.toggle("slide-animate");
   }, 350);
 });
 
 menuButton.addEventListener("click", (event) => {
-    sideMenu.classList.toggle("side-menu-show");
+  sideMenu.classList.toggle("side-menu-show");
 });
 
 closeMenuButton.addEventListener("click", (event) => {
-    sideMenu.classList.toggle("side-menu-show");
+  sideMenu.classList.toggle("side-menu-show");
 });
 
-function switchMode(node){
-
-    if(node.length !== undefined){
-        for(let el of node){
-            el.classList.toggle('light-font');
-        }
+function switchMode(node) {
+  if (node.length !== undefined) {
+    for (let el of node) {
+      el.classList.toggle("light-font");
     }
-    else {
-        if(node.id === "side-menu") 
-            node.classList.toggle("light-side-menu");
-        node.classList.toggle('light-font');
-    }
+  } else {
+    if (node.id === "side-menu") node.classList.toggle("light-side-menu");
+    node.classList.toggle("light-font");
+  }
 }

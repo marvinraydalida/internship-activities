@@ -48,7 +48,6 @@ setInterval(() => {
 
     image.style.right = `calc(${image.style.right} - 100px)`;
 
-    console.log(imageWidth)
     if (galleryRight < currentImageLeft){
         const parentNode = image.parentNode;
         const imageCopy = image.cloneNode(true);
