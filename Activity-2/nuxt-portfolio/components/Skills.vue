@@ -1,25 +1,30 @@
 <template>
     <section id="skills">
-        <div id="skills-grid">
-            <GridContainer :value="value" />
+        <transition name="grid">
+            <div id="skills-grid" v-show="display">
+                <GridContainer :value="value" />
 
-            <div id="radio-button-container">
-                <div class="radio-button-border" :class="{ 'light-radio-button': disabled }" @click="toggle(0)">
-                    <div class="radio-button" :class="{ 'toggled': isPrimary, 'light-radio-button-border': disabled }">
+                <div id="radio-button-container">
+                    <div class="radio-button-border" :class="{ 'light-radio-button': disabled }" @click="toggle(0)">
+                        <div class="radio-button" :class="{ 'toggled': isPrimary, 'light-radio-button-border': disabled }">
+                        </div>
                     </div>
-                </div>
-                <div class="radio-button-border" :class="{ 'light-radio-button': disabled }" @click="toggle(1)">
-                    <div class="radio-button" :class="{ 'toggled': isSecondary, 'light-radio-button-border': disabled }">
+                    <div class="radio-button-border" :class="{ 'light-radio-button': disabled }" @click="toggle(1)">
+                        <div class="radio-button"
+                            :class="{ 'toggled': isSecondary, 'light-radio-button-border': disabled }">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="skills-description">
-            <h1 :class="{ 'light-font': disabled }">My {{ title[value] }} <span>Weapons</span></h1>
-            <p :class="{ 'light-font': disabled }">
-                {{ description[value] }}
-            </p>
-        </div>
+        </transition>
+        <transition name="details">
+            <div id="skills-description" v-show="display">
+                <h1 :class="{ 'light-font': disabled }">My {{ title[value] }} <span>Weapons</span></h1>
+                <p :class="{ 'light-font': disabled }">
+                    {{ description[value] }}
+                </p>
+            </div>
+        </transition>
     </section>
 </template>
 
@@ -28,6 +33,7 @@ export default {
     props: ['disabled'],
     data() {
         return {
+            display: false,
             value: 0,
             title: ["Primary", "Secondary"],
             description: [`I call these markup and programming languages as my primary weapons
@@ -49,6 +55,19 @@ export default {
         isSecondary() {
             return this.value === 1;
         }
+    },
+    mounted() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    if (!this.display) {
+                        this.display = !this.display;
+                    }
+                }
+            });
+        });
+
+        observer.observe(document.getElementById("skills"));
     }
 }
 </script>
@@ -95,9 +114,16 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* border: 1px solid green; */
 }
 
+.grid-enter-active {
+    transition: all 500ms ease-in-out;
+}
+
+.grid-enter {
+    opacity: 0;
+    transform: translateX(30px);
+}
 
 #skills-description {
     width: 50%;
@@ -107,6 +133,15 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.details-enter-active {
+    transition: all 1s ease-in-out;
+}
+
+.details-enter {
+    opacity: 0;
+    transform: translateX(30px);
 }
 
 #skills-description h1 {

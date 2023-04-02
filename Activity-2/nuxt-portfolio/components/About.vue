@@ -1,33 +1,38 @@
 <template>
     <section id="about">
-        <div id="about-details">
-            <h1 :class="{ 'light-font': disabled }">About <span>Me</span></h1>
-            <h2 :class="{ 'light-font': disabled }">
-                Hi there! My name is Marvin Ray Dalida, but my friends usually call me
-                Amben. Lately, I've been indulging in watching anime series as a
-                hobby. Additionally, I love learning and playing new guitar covers in
-                my spare time.
-            </h2>
-            <ul>
-                <li>
-                    <a href="https://www.linkedin.com/in/marvinraydalida/" target="_blank"><i
-                            class="bi bi-linkedin"></i></a>
-                </li>
-                <li>
-                    <a href="https://github.com/marvinraydalida" target="_blank"><i class="bi bi-github"></i></a>
-                </li>
-                <li>
-                    <a href="https://discord.com/users/692694373460082779" target="_blank"><i class="bi bi-discord"></i></a>
-                </li>
-            </ul>
-        </div>
-        <div id="about-puzzle">
-            <div id="puzzle-container">
-                <PuzzleRow :columns="['empty', '1', '2']" />
-                <PuzzleRow :columns="['3', '4', '5']" />
-                <PuzzleRow :columns="['6', '7', '8']" />
+        <transition name="details">
+            <div id="about-details" v-if="display">
+                <h1 :class="{ 'light-font': disabled }">About <span>Me</span></h1>
+                <h2 :class="{ 'light-font': disabled }">
+                    Hi there! My name is Marvin Ray Dalida, but my friends usually call me
+                    Amben. Lately, I've been indulging in watching anime series as a
+                    hobby. Additionally, I love learning and playing new guitar covers in
+                    my spare time.
+                </h2>
+                <ul>
+                    <li>
+                        <a href="https://www.linkedin.com/in/marvinraydalida/" target="_blank"><i
+                                class="bi bi-linkedin"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/marvinraydalida" target="_blank"><i class="bi bi-github"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://discord.com/users/692694373460082779" target="_blank"><i
+                                class="bi bi-discord"></i></a>
+                    </li>
+                </ul>
             </div>
-        </div>
+        </transition>
+        <transition name="puzzle">
+            <div id="about-puzzle" v-show="display">
+                <div id="puzzle-container">
+                    <PuzzleRow :columns="['empty', '1', '2']" />
+                    <PuzzleRow :columns="['3', '4', '5']" />
+                    <PuzzleRow :columns="['6', '7', '8']" />
+                </div>
+            </div>
+        </transition>
     </section>
 </template>
 
@@ -37,6 +42,7 @@ export default {
     props: ['disabled'],
     data() {
         return {
+            display: false,
             tileImages: ["./assets/row-1-column-2.jpg", "./assets/row-1-column-3.jpg", "./assets/row-2-column-1.jpg", "./assets/row-2-column-2.jpg", "./assets/row-2-column-3.jpg", "./assets/row-3-column-1.jpg", "./assets/row-3-column-2.jpg", "./assets/row-3-column-3.jpg"]
         }
     },
@@ -138,6 +144,18 @@ export default {
 
             return [row, col];
         }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    if (!this.display) {
+                        this.display = !this.display;
+                    }
+                }
+            });
+        });
+
+        observer.observe(document.getElementById("about"));
     }
 }
 </script>
@@ -184,6 +202,15 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.details-enter-active {
+    transition: all 500ms ease-in-out;
+}
+
+.details-enter {
+    opacity: 0;
+    transform: translateX(30px);
 }
 
 #about-details h1 {
@@ -237,7 +264,19 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
+    transition: all 1000ms ease-in-out;
 }
+
+
+.puzzle-enter-active {
+    transition: all 1000ms ease-in-out;
+}
+
+.puzzle-enter {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
 
 #puzzle-container {
     width: 600px;
@@ -283,85 +322,85 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
-  #about {
-    flex-direction: column-reverse;
-  }
+    #about {
+        flex-direction: column-reverse;
+    }
 
-  #about-details {
-    padding: 0px 100px 30px 100px;
-    width: 100%;
-    height: 40%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    #about-details {
+        padding: 0px 100px 30px 100px;
+        width: 100%;
+        height: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-  #about-details h1 {
-    margin-bottom: 0px;
-  }
+    #about-details h1 {
+        margin-bottom: 0px;
+    }
 
-  #about-details h2 {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-    text-align: center;
-  }
+    #about-details h2 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        text-align: center;
+    }
 
-  #about-puzzle {
-    height: 60%;
-    width: 100%;
-  }
+    #about-puzzle {
+        height: 60%;
+        width: 100%;
+    }
 
-  #puzzle-container {
-    width: 400px;
-    height: 400px;
-  }
+    #puzzle-container {
+        width: 400px;
+        height: 400px;
+    }
 }
 
 @media only screen and (max-width: 465px) {
-  #about-details {
-    height: 50%;
-    padding: 0px 50px 30px 50px;
-  }
+    #about-details {
+        height: 50%;
+        padding: 0px 50px 30px 50px;
+    }
 
-  #about-details h1 {
-    font-size: 2.5rem;
-    font-weight: 500;
-    margin-bottom: 10px;
-  }
+    #about-details h1 {
+        font-size: 2.5rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
 
-  #about-details h2 {
-    font-size: 1rem;
-    margin-bottom: 30px;
-  }
+    #about-details h2 {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
 
-  #about-details li {
-    margin-right: 20px;
-  }
+    #about-details li {
+        margin-right: 20px;
+    }
 
-  #about-details li a i {
-    font-size: 1.7rem;
-  }
+    #about-details li a i {
+        font-size: 1.7rem;
+    }
 
-  #about-puzzle {
-    height: 50%;
-  }
+    #about-puzzle {
+        height: 50%;
+    }
 
-  #puzzle-container {
-    width: 350px;
-    height: 350px;
-  }
+    #puzzle-container {
+        width: 350px;
+        height: 350px;
+    }
 }
 
 @media only screen and (max-width: 375px) {
-  #puzzle-container {
-    width: 300px;
-    height: 300px;
-  }
+    #puzzle-container {
+        width: 300px;
+        height: 300px;
+    }
 
-  #about-details h2 {
-    font-size: .9rem;
-    line-height: 1.3rem;
-    margin-bottom: 30px;
-  }
+    #about-details h2 {
+        font-size: .9rem;
+        line-height: 1.3rem;
+        margin-bottom: 30px;
+    }
 }
 </style>

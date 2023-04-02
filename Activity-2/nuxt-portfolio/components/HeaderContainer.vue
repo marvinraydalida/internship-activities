@@ -1,6 +1,9 @@
 <template>
     <header id="home">
-        <h1 :class="{ 'light-font': disabled }">Let me showcase my <span>DOM</span> manipulation skills to you.</h1>
+        <transition name="text">
+            <h1 v-if="fade" :class="{ 'light-font': disabled }">Let me showcase my <span>DOM</span> manipulation skills to
+                you.</h1>
+        </transition>
         <div class="gallery">
             <GalleryImage />
             <GalleryImage />
@@ -18,7 +21,7 @@ export default {
     props: ['disabled'],
     data() {
         return {
-            animate: false,
+            fade: false,
             imageSources: [
                 "https://images.squarespace-cdn.com/content/v1/545a242be4b04f070d49e9eb/1488227862178-M6IUJ1DPGH0FE0CA29GV/image-asset.jpeg?format=1000w",
                 "https://www.koreanindie.com/wp-content/uploads/2019/05/Jannabi_Legend.jpg",
@@ -84,6 +87,19 @@ export default {
                 }
             }
         }, 1100);
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    if (!this.fade) {
+                        this.fade = !this.fade;
+                    }
+                    // entry.target.classList.add('show');
+                }
+            });
+        });
+
+        observer.observe(document.getElementById("home"));
     }
 }
 </script>
@@ -122,6 +138,14 @@ body {
     line-height: 6rem;
     color: white;
     margin: 100px 200px;
+}
+
+.text-enter {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.text-enter-active {
     transition: all 500ms ease-in;
 }
 

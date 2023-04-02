@@ -9,6 +9,7 @@
                 <li><a href="#home" class="nav-button" :class="{ 'light-font': disabled }">Home</a></li>
                 <li><a href="#about" class="nav-button" :class="{ 'light-font': disabled }">About</a></li>
                 <li><a href="#skills" class="nav-button" :class="{ 'light-font': disabled }">Skills</a></li>
+                <li><a href="#projects" class="nav-button" :class="{ 'light-font': disabled }">Projects</a></li>
             </ul>
             <div id="menu-button" @click="toggleSideMenu">
                 <i class="bi bi-list" :class="{ 'light-font': disabled }"></i>
@@ -22,6 +23,7 @@
                 <MenuLink title="Home" icon="bi bi-house" link="#home"/>
                 <MenuLink title="About" icon="bi bi-person" link="#about"/>
                 <MenuLink title="Skills" icon="bi bi-code-slash" link="#skills"/>
+                <MenuLink title="Projects" icon="bi bi-braces" link="#projects"/>
             </ul>
         </div>
     </div>

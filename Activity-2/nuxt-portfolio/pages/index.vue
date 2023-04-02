@@ -4,6 +4,7 @@
     <HeaderContainer :disabled="disabled"/>
     <About :disabled="disabled"/>
     <Skills :disabled="disabled"/>
+    <Projects :disabled="disabled"/>
   </div>
 </template>
 
@@ -44,6 +45,22 @@ html {
 
 body {
   background-color: var(--primary-dark);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 50px !important;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>
 
